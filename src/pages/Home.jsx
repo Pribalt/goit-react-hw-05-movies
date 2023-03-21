@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getTrending } from '..//getAPI';
+import { getTrending } from 'getAPI';
 import MovieList from 'components/MovieList/MovieList';
 
 const Home = () => {

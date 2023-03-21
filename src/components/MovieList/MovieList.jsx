@@ -9,7 +9,6 @@ const MovieList = ({ movies }) => {
           </li>
         ))}
       </ul>
-      ;
     </div>
   );
 };

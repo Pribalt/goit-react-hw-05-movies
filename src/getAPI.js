@@ -12,9 +12,9 @@ export const getTrending = async () => {
 };
 
 // пошук фільму за ключовим словом на сторінці фільмів
-export const getSearchMovies = async (query, page) => {
+export const getSearchMovies = async query => {
   const response = await axios.get(
-    `${BASE_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`
+    `${BASE_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
   );
   return response.data;
 };

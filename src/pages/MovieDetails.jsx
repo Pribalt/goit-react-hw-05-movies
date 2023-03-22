@@ -1,10 +1,15 @@
-import { useState, useEffect, Suspense } from 'react';
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { useState, useEffect, Suspense, useRef } from 'react';
+import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
 import { getMovieDetails } from 'getAPI';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState({});
   const { movieId } = useParams();
+  const location = useLocation();
+
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
+  const { poster_path, title, release_date, vote_average, overview, genres } =
+    movie;
 
   useEffect(() => {
     async function fetchData() {
@@ -18,11 +23,9 @@ const MovieDetails = () => {
     fetchData();
   }, [movieId]);
 
-  const { poster_path, title, release_date, vote_average, overview, genres } =
-    movie;
-
   return (
     <main>
+      <Link to={backLinkLocationRef.current}>Go back</Link>
       <img
         src={
           poster_path
@@ -49,11 +52,11 @@ const MovieDetails = () => {
         <h4>Additional information</h4>
         <ul>
           <li>
-            <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+            <Link to={`cast`}>Cast</Link>
           </li>
 
           <li>
-            <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+            <Link to={`reviews`}>Reviews</Link>
           </li>
         </ul>
       </div>

@@ -35,7 +35,7 @@ const Movies = () => {
   };
 
   return (
-    <>
+    <main>
       {loading && <div>Loading...</div>}
       <SearchMovie onChange={updateQueryString} />
       {movies && <MovieList movies={movies} />}
@@ -45,7 +45,7 @@ const Movies = () => {
           duration: 2000,
         }}
       />
-    </>
+    </main>
   );
 };
 export default Movies;

@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieCast } from 'getAPI';
+import {
+  Container,
+  List,
+  Itam,
+  WrapImg,
+  WrapText,
+} from 'components/Cast/Cast.styled';
 
 const Cast = () => {
   const [castMovie, setCastMovie] = useState([]);
@@ -19,29 +26,33 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <>
+    <Container>
       {castMovie.length !== 0 ? (
-        <ul>
+        <List>
           {castMovie.map(({ id, profile_path, name, character }) => (
-            <li key={id}>
-              <img
-                src={
-                  profile_path
-                    ? `https://image.tmdb.org/t/p/w200${profile_path}`
-                    : `https://hryoutest.in.ua/uploads/images/default.jpg`
-                }
-                alt={name}
-                width={100}
-              />
-              <p>{name}</p>
-              <p>Character: {character}</p>
-            </li>
+            <Itam key={id}>
+              <WrapImg>
+                <img
+                  src={
+                    profile_path
+                      ? `https://image.tmdb.org/t/p/w200${profile_path}`
+                      : `https://hryoutest.in.ua/uploads/images/default.jpg`
+                  }
+                  alt={name}
+                  width={150}
+                />
+              </WrapImg>
+              <WrapText>
+                <p>{name}</p>
+                <p>Character: {character}</p>
+              </WrapText>
+            </Itam>
           ))}
-        </ul>
+        </List>
       ) : (
         <p>We have no information about the cast</p>
       )}
-    </>
+    </Container>
   );
 };
 

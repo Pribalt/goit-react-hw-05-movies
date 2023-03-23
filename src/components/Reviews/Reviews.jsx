@@ -17,8 +17,9 @@ const Reviews = () => {
     }
     fetchData();
   }, [movieId]);
+
   return (
-    <>
+    <section>
       {reviewsMovie.length !== 0 ? (
         <ul>
           {reviewsMovie.map(({ id, author, content }) => (
@@ -31,7 +32,7 @@ const Reviews = () => {
       ) : (
         <p>We don't have any reviews for this movie</p>
       )}
-    </>
+    </section>
   );
 };
 

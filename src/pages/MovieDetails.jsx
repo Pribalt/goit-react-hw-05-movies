@@ -1,6 +1,8 @@
 import { useState, useEffect, Suspense, useRef } from 'react';
-import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
+import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { getMovieDetails } from 'getAPI';
+import BackLink from 'components/BackLink/BackLink';
+import MovieDetailsDescription from 'components/MovieDetailsDescription/MovieDetailsDescription';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState({});
@@ -8,8 +10,6 @@ const MovieDetails = () => {
   const location = useLocation();
 
   const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
-  const { poster_path, title, release_date, vote_average, overview, genres } =
-    movie;
 
   useEffect(() => {
     async function fetchData() {
@@ -25,42 +25,8 @@ const MovieDetails = () => {
 
   return (
     <main>
-      <Link to={backLinkLocationRef.current}>Go back</Link>
-      <img
-        src={
-          poster_path
-            ? `https://image.tmdb.org/t/p/w500${poster_path}`
-            : `https://hryoutest.in.ua/uploads/images/default.jpg`
-        }
-        alt="{title}"
-        width={300}
-      />
-      <div>
-        <h2>
-          {title}
-          {release_date && <span>{release_date.split('-')[0]}</span>}
-        </h2>
-        <p>User Score: {Math.round(vote_average * 10)}%</p>
-        <h3>Overview</h3>
-        <p>{overview}</p>
-        <h3>Genres</h3>
-        <ul>
-          {genres && genres.map(({ id, name }) => <li key={id}>{name}</li>)}
-        </ul>
-      </div>
-      <div>
-        <h4>Additional information</h4>
-        <ul>
-          <li>
-            <Link to={`cast`}>Cast</Link>
-          </li>
-
-          <li>
-            <Link to={`reviews`}>Reviews</Link>
-          </li>
-        </ul>
-      </div>
-
+      <BackLink to={backLinkLocationRef.current}>Go back</BackLink>
+      <MovieDetailsDescription movie={movie} />
       <Suspense fallback={<div>Loading page...</div>}>
         <Outlet />
       </Suspense>
